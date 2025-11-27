@@ -1,21 +1,14 @@
 #!/usr/bin/env node
 
 const { Command } = require('commander');
-const { syncCollection } = require('../scripts/sync-collection');
-const { backupCollection } = require('../scripts/backup-collection');
-const { validateCollection } = require('../scripts/validate-collection');
-const { convertOpenApiToPostman } = require('../scripts/convert-openapi');
-const { mergeCollections } = require('../scripts/merge-collections');
-const fs = require('fs').promises;
-const path = require('path');
-require('dotenv').config({ quiet: true });
+require('dotenv').config();
 
 const program = new Command();
 
 program
     .name('postman-sync')
     .description('Postman 集合與 OpenAPI 規格同步工具')
-    .version('1.0.0');
+    .version('1.0.2');
 
 // Sync 命令
 program
@@ -52,6 +45,8 @@ program
                 process.env.REJECT_UNAUTHORIZED = 'false';
             }
 
+            // 延遲載入
+            const { syncCollection } = require('../scripts/sync-collection');
             await syncCollection(openapiPath, collectionId);
         } catch (error) {
             console.error('❌ 同步失敗:', error.message);
@@ -82,6 +77,8 @@ program
 
             if (apiKey) process.env.POSTMAN_API_KEY = apiKey;
 
+            // 延遲載入
+            const { backupCollection } = require('../scripts/backup-collection');
             await backupCollection(collectionId);
             console.log('\n✅ 備份完成!');
         } catch (error) {
@@ -112,6 +109,12 @@ program
             }
 
             console.log('🔄 正在轉換 OpenAPI 規格...');
+
+            // 延遲載入
+            const { convertOpenApiToPostman } = require('../scripts/convert-openapi');
+            const fs = require('fs').promises;
+            const path = require('path');
+
             const collection = await convertOpenApiToPostman(openapiPath);
 
             // 確保輸出目錄存在
@@ -134,6 +137,8 @@ program
     .option('-e, --environment <path>', '環境檔案路徑')
     .action(async (options) => {
         try {
+            // 延遲載入
+            const { validateCollection } = require('../scripts/validate-collection');
             await validateCollection(options.collection, options.environment);
             console.log('\n✅ 驗證完成!');
         } catch (error) {
@@ -157,6 +162,12 @@ program
             }
 
             console.log('🔀 正在合併集合...');
+
+            // 延遲載入
+            const { mergeCollections } = require('../scripts/merge-collections');
+            const fs = require('fs').promises;
+            const path = require('path');
+
             const originalData = await fs.readFile(options.original, 'utf-8');
             const newData = await fs.readFile(options.new, 'utf-8');
 

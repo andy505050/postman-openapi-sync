@@ -1,6 +1,6 @@
 {
   "name": "postman-openapi-sync",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "自動化 Postman collection 與 OpenAPI 規格同步工具",
   "main": "scripts/sync-collection.js",
   "bin": {
@@ -46,7 +46,7 @@
   "dependencies": {
     "axios": "^1.13.2",
     "commander": "^14.0.2",
-    "dotenv": "^17.2.3",
+    "dotenv": "16.6.1",
     "lodash": "^4.17.21",
     "newman": "^6.2.1",
     "openapi-to-postmanv2": "^5.5.0"
