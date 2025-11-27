@@ -2,6 +2,52 @@
 
 自動化工具, 用於將 Postman collection 與 OpenAPI 規格同步, 同時保留所有自訂測試、指令碼和設定。
 
+## 系統需求
+
+- Node.js 22.20.0 或更高版本 (較低版本未經測試,可能無法正常運作)
+- npm 或 yarn 套件管理工具
+
+### 安裝 Node.js
+
+#### 方法 1: 直接安裝
+
+前往 [Node.js 官方網站](https://nodejs.org/) 下載並安裝適合您作業系統的版本。建議安裝 LTS (長期支援) 版本。
+
+#### 方法 2: 使用 nvm (推薦)
+
+使用 [nvm (Node Version Manager)](https://github.com/nvm-sh/nvm) 可以輕鬆管理多個 Node.js 版本:
+
+**Windows:**
+
+```bash
+# 安裝 nvm-windows
+# 從 https://github.com/coreybutler/nvm-windows/releases 下載安裝程式
+
+# 安裝 Node.js LTS 版本
+nvm install lts
+nvm use lts
+```
+
+**macOS/Linux:**
+
+```bash
+# 安裝 nvm
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
+
+# 安裝 Node.js LTS 版本
+nvm install --lts
+nvm use --lts
+```
+
+#### 確認安裝
+
+安裝完成後, 可以在終端機執行以下指令確認版本:
+
+```bash
+node --version
+npm --version
+```
+
 ## 快速開始
 
 ### 1. 安裝相依套件
