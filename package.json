@@ -1,0 +1,30 @@
+{
+  "name": "postman-openapi-sync",
+  "version": "1.0.0",
+  "description": "自動化 Postman 集合與 OpenAPI 規格同步工具",
+  "main": "scripts/sync-collection.js",
+  "scripts": {
+    "sync": "node scripts/sync-collection.js",
+    "backup": "node scripts/backup-collection.js",
+    "convert": "node scripts/convert-openapi.js",
+    "merge": "node scripts/merge-collections.js",
+    "validate": "node scripts/validate-collection.js"
+  },
+  "keywords": [
+    "postman",
+    "openapi",
+    "api",
+    "sync",
+    "automation"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "axios": "^1.13.2",
+    "dotenv": "^17.2.3",
+    "lodash": "^4.17.21",
+    "newman": "^6.2.1",
+    "openapi-to-postmanv2": "^5.5.0",
+    "postman-collection": "^5.2.0"
+  }
+}

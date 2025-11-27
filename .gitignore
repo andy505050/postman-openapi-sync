@@ -1,0 +1,21 @@
+# 相依套件
+node_modules/
+yarn.lock
+package-lock.json
+
+# 環境變數
+.env
+
+# 備份和暫存檔案
+backups/
+temp/
+
+# 報告
+reports/
+
+# 日誌
+*.log
+
+# 作業系統檔案
+.DS_Store
+Thumbs.db
