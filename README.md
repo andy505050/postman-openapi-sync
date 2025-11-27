@@ -160,7 +160,9 @@ yarn convert
 
 ### 合併 collection
 
-合併兩個 collection 檔案。**注意: collection 必須使用本工具的 converter 或從 Postman 匯入時的 collection 格式,才能正確識別資料夾結構。手動編輯的 collection 可能無法正常合併。並且 converter 和 Postman 匯入的 collection 也會有細微差異。**
+合併兩個 collection 檔案。
+
+**注意: collection 必須使用本工具的 converter 或從 Postman 匯入時的 collection 格式,才能正確識別資料夾結構。手動編輯的 collection 可能無法正常合併。並且 converter 和 Postman 匯入的 collection 也會有細微差異。**
 
 ```bash
 # 合併兩個 collection 檔案
