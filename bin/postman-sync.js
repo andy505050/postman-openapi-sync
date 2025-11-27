@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 const { Command } = require('commander');
+const { version } = require('../package.json');
 require('dotenv').config();
 
 const program = new Command();
@@ -8,7 +9,7 @@ const program = new Command();
 program
     .name('postman-sync')
     .description('Postman 集合與 OpenAPI 規格同步工具')
-    .version('1.0.2');
+    .version(version);
 
 // Sync 命令
 program
