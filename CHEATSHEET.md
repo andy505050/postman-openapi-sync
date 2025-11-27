@@ -12,6 +12,8 @@ npm install -g postman-openapi-sync
 
 ```bash
 postman-sync sync -o <openapi-file> -c <collection-id> -k <api-key>
+# 允許自簽 SSL 憑證
+postman-sync sync -o <openapi-file> -c <collection-id> -k <api-key> --no-reject-unauthorized
 ```
 
 ### 備份
@@ -24,6 +26,8 @@ postman-sync backup -c <collection-id> -k <api-key>
 
 ```bash
 postman-sync convert -o <openapi-file> -d <output-file>
+# 允許自簽 SSL 憑證
+postman-sync convert -o <openapi-file> -d <output-file> --no-reject-unauthorized
 ```
 
 ### 合併
@@ -46,6 +50,7 @@ postman-sync validate -c <collection> -e <environment>
 POSTMAN_API_KEY=your_key
 POSTMAN_COLLECTION_ID=your_id
 OPENAPI_PATH=./openapi.yaml
+REJECT_UNAUTHORIZED=false  # 選用: 允許自簽憑證
 ```
 
 然後直接執行:

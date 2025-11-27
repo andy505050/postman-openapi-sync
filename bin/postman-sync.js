@@ -8,7 +8,7 @@ const { convertOpenApiToPostman } = require('../scripts/convert-openapi');
 const { mergeCollections } = require('../scripts/merge-collections');
 const fs = require('fs').promises;
 const path = require('path');
-require('dotenv').config();
+require('dotenv').config({ quiet: true });
 
 const program = new Command();
 
@@ -24,6 +24,7 @@ program
     .option('-o, --openapi <path>', 'OpenAPI 規格檔案路徑')
     .option('-c, --collection <id>', 'Postman Collection ID')
     .option('-k, --api-key <key>', 'Postman API Key')
+    .option('--no-reject-unauthorized', '停用 SSL 憑證驗證 (允許自簽憑證)')
     .action(async (options) => {
         try {
             const openapiPath = options.openapi || process.env.OPENAPI_PATH;
@@ -47,6 +48,9 @@ program
 
             // 暫時設定環境變數
             if (apiKey) process.env.POSTMAN_API_KEY = apiKey;
+            if (options.rejectUnauthorized === false) {
+                process.env.REJECT_UNAUTHORIZED = 'false';
+            }
 
             await syncCollection(openapiPath, collectionId);
         } catch (error) {
@@ -92,6 +96,7 @@ program
     .description('轉換 OpenAPI 規格為 Postman Collection')
     .option('-o, --openapi <path>', 'OpenAPI 規格檔案路徑')
     .option('-d, --output <path>', '輸出檔案路徑', './temp/converted-collection.json')
+    .option('--no-reject-unauthorized', '停用 SSL 憑證驗證 (允許自簽憑證)')
     .action(async (options) => {
         try {
             const openapiPath = options.openapi || process.env.OPENAPI_PATH;
@@ -99,6 +104,11 @@ program
             if (!openapiPath) {
                 console.error('❌ 錯誤: 請提供 OpenAPI 規格檔案路徑 (--openapi 或設定 OPENAPI_PATH 環境變數)');
                 process.exit(1);
+            }
+
+            // 設定環境變數
+            if (options.rejectUnauthorized === false) {
+                process.env.REJECT_UNAUTHORIZED = 'false';
             }
 
             console.log('🔄 正在轉換 OpenAPI 規格...');

@@ -14,6 +14,7 @@ npm install -g postman-openapi-sync
 POSTMAN_API_KEY=your_postman_api_key
 POSTMAN_COLLECTION_ID=your_collection_id
 OPENAPI_PATH=./openapi.yaml
+# REJECT_UNAUTHORIZED=false  # 選用: 允許自簽 SSL 憑證
 ```
 
 ## 基本使用
