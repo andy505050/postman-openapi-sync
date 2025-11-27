@@ -24,7 +24,6 @@
     "dotenv": "^17.2.3",
     "lodash": "^4.17.21",
     "newman": "^6.2.1",
-    "openapi-to-postmanv2": "^5.5.0",
-    "postman-collection": "^5.2.0"
+    "openapi-to-postmanv2": "^5.5.0"
   }
 }
