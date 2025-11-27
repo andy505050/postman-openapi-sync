@@ -1,6 +1,15 @@
-# Postman collection 與 OpenAPI 規格同步工具
+# Postman OpenAPI Sync CLI
 
-自動化工具, 用於將 Postman collection 與 OpenAPI 規格同步, 同時保留所有自訂測試、指令碼和設定。
+自動化 Postman Collection 與 OpenAPI 規格同步的命令列工具。
+
+## 功能特色
+
+- 🔄 自動同步 OpenAPI 規格到 Postman Collection
+- 📦 備份現有 Postman Collection
+- 🔀 智慧合併,保留自訂設定(測試指令碼、標頭、變數等)
+- 🧪 執行 Newman 驗證集合
+- 📊 產生詳細的變更報告
+- 🚀 簡單易用的 CLI 介面
 
 ## 重要說明
 
@@ -52,256 +61,210 @@ node --version
 npm --version
 ```
 
-## 快速開始
+## 安裝
 
-### 1. 安裝相依套件
-
-使用 npm (Node.js 內建):
+### 全域安裝
 
 ```bash
+npm install -g postman-openapi-sync
+```
+
+### 本地安裝
+
+```bash
+npm install postman-openapi-sync
+```
+
+### 開發模式
+
+```bash
+git clone <repository-url>
+cd postman-openapi-sync
 npm install
+npm link
 ```
 
-或使用 yarn (需先安裝):
+## 設定
 
-```bash
-# 安裝 yarn (僅首次使用需要)
-npm install -g yarn
-
-# 安裝專案相依套件
-yarn install
-```
-
-### 2. 設定環境變數
-
-複製 `.env.example` 為 `.env` 並填入您的 Postman API 資訊:
-
-```bash
-cp .env.example .env
-```
-
-編輯 `.env` 檔案:
+建立 `.env` 檔案並設定以下環境變數:
 
 ```env
-POSTMAN_API_KEY=your_actual_api_key
+POSTMAN_API_KEY=your_postman_api_key
 POSTMAN_COLLECTION_ID=your_collection_id
-OPENAPI_PATH=./openapi.yaml
+OPENAPI_PATH=./path/to/openapi.yaml
 ```
 
-### 3. 執行同步
+## 使用方式
 
-使用 npm:
+### 同步集合
+
+將 OpenAPI 規格同步到 Postman Collection:
 
 ```bash
-# 方法 1: 使用命令列參數
-npm run sync path/to/your/openapi.yaml your-collection-id
-
-# 方法 2: 使用環境變數 (在 .env 中設定)
-npm run sync
+postman-sync sync --openapi ./openapi.yaml --collection <collection-id>
 ```
 
-使用 yarn:
+或使用環境變數:
 
 ```bash
-# 方法 1: 使用命令列參數
-yarn sync path/to/your/openapi.yaml your-collection-id
-
-# 方法 2: 使用環境變數 (在 .env 中設定)
-yarn sync
+postman-sync sync
 ```
 
-## 可用指令
+### 備份集合
+
+備份現有的 Postman Collection:
+
+```bash
+postman-sync backup --collection <collection-id>
+```
+
+備份檔案會儲存在 `backups/` 目錄中,包含時間戳記。
+
+### 轉換 OpenAPI
+
+將 OpenAPI 規格轉換為 Postman Collection 格式:
+
+```bash
+postman-sync convert --openapi ./openapi.yaml --output ./output/collection.json
+```
+
+### 合併集合
+
+合併兩個 Postman Collection,保留自訂設定:
+
+```bash
+postman-sync merge --original ./original.json --new ./new.json --output ./merged.json
+```
+
+### 驗證集合
+
+使用 Newman 執行集合測試:
+
+```bash
+postman-sync validate --collection ./collection.json --environment ./env.json
+```
+
+## 命令列選項
+
+### sync
+
+| 選項                | 簡寫 | 說明                  | 預設值                           |
+| ------------------- | ---- | --------------------- | -------------------------------- |
+| `--openapi <path>`  | `-o` | OpenAPI 規格檔案路徑  | `OPENAPI_PATH` 環境變數          |
+| `--collection <id>` | `-c` | Postman Collection ID | `POSTMAN_COLLECTION_ID` 環境變數 |
+| `--api-key <key>`   | `-k` | Postman API Key       | `POSTMAN_API_KEY` 環境變數       |
+
+### backup
+
+| 選項                | 簡寫 | 說明                  | 預設值                           |
+| ------------------- | ---- | --------------------- | -------------------------------- |
+| `--collection <id>` | `-c` | Postman Collection ID | `POSTMAN_COLLECTION_ID` 環境變數 |
+| `--api-key <key>`   | `-k` | Postman API Key       | `POSTMAN_API_KEY` 環境變數       |
+
+### convert
+
+| 選項               | 簡寫 | 說明                 | 預設值                             |
+| ------------------ | ---- | -------------------- | ---------------------------------- |
+| `--openapi <path>` | `-o` | OpenAPI 規格檔案路徑 | `OPENAPI_PATH` 環境變數            |
+| `--output <path>`  | `-d` | 輸出檔案路徑         | `./temp/converted-collection.json` |
+
+### merge
+
+| 選項                | 簡寫 | 說明             | 預設值                          |
+| ------------------- | ---- | ---------------- | ------------------------------- |
+| `--original <path>` | `-o` | 原始集合檔案路徑 | 必填                            |
+| `--new <path>`      | `-n` | 新集合檔案路徑   | 必填                            |
+| `--output <path>`   | `-d` | 輸出檔案路徑     | `./temp/merged-collection.json` |
+
+### validate
+
+| 選項                   | 簡寫 | 說明         | 預設值                          |
+| ---------------------- | ---- | ------------ | ------------------------------- |
+| `--collection <path>`  | `-c` | 集合檔案路徑 | `./temp/merged-collection.json` |
+| `--environment <path>` | `-e` | 環境檔案路徑 | 無                              |
+
+## 工作流程
+
+完整的同步流程包含以下步驟:
+
+1. **備份**: 自動備份現有 Postman Collection
+2. **轉換**: 將 OpenAPI 規格轉換為 Postman Collection 格式
+3. **合併**: 智慧合併新舊集合,保留自訂設定
+4. **報告**: 產生詳細的變更報告
+5. **更新**: 將合併後的集合更新到 Postman
+
+## 保留的自訂設定
+
+同步時會保留以下自訂設定:
+
+- ✅ 測試指令碼 (test events)
+- ✅ 預請求指令碼 (prerequest events)
+- ✅ 自訂標頭 (X-\* headers)
+- ✅ 集合變數
+- ✅ 驗證設定
+- ✅ 請求描述
+
+## 範例
 
 ### 完整同步流程
 
-自動執行備份、轉換、合併、上傳的完整流程。
-
 ```bash
-# 使用命令列參數
-npm run sync <openapi-path> <collection-id>
-# 或
-yarn sync <openapi-path> <collection-id>
+# 設定環境變數
+export POSTMAN_API_KEY=your_api_key
+export POSTMAN_COLLECTION_ID=your_collection_id
+export OPENAPI_PATH=./openapi.yaml
 
-# 使用環境變數
-npm run sync
-# 或
-yarn sync
-```
+# 執行同步
+postman-sync sync
 
-### 僅備份 collection
-
-從 Postman API 下載並備份 collection。
-
-```bash
-# 使用命令列參數
-npm run backup <collection-id>
-# 或
-yarn backup <collection-id>
-
-# 使用環境變數
-npm run backup
-# 或
-yarn backup
-```
-
-### 僅轉換 OpenAPI 規格
-
-```bash
-# 使用命令列參數
-npm run convert <openapi-path>
-# 或
-yarn convert <openapi-path>
-
-# 使用環境變數
-npm run convert
-# 或
-yarn convert
-```
-
-### 合併 collection
-
-合併兩個 collection 檔案。
-
-**注意: collection 必須使用本工具的 converter 或從 Postman 匯入時的 collection 格式,才能正確識別資料夾結構。手動編輯的 collection 可能無法正常合併。並且 converter 和 Postman 匯入的 collection 也會有細微差異。**
-
-```bash
-# 合併兩個 collection 檔案
-npm run merge <原始collection> <新collection> [輸出路徑]
-# 或
-yarn merge <原始collection> <新collection> [輸出路徑]
-
-# 範例 1: 預設輸出路徑
-npm run merge ./backups/collection-backup.json ./temp/converted-collection.json
-# 或
-yarn merge ./backups/collection-backup.json ./temp/converted-collection.json
-
-# 範例 2: 指定輸出路徑
-npm run merge ./backups/backup.json ./temp/new.json ./output/merged.json
-# 或
-yarn merge ./backups/backup.json ./temp/new.json ./output/merged.json
-```
-
-### 驗證 collection
-
-```bash
-# 驗證本地 collection 檔案
-npm run validate <collection-path> [environment-path]
-# 或
-yarn validate <collection-path> [environment-path]
-
-# 驗證預設暫存 collection
-npm run validate
-# 或
-yarn validate
-```
-
-## 使用範例
-
-### 範例 1: 首次同步
-
-```bash
-# 1. 設定環境變數
-cp .env.example .env
-# 編輯 .env 填入 API 金鑰和 collection ID
-
-# 2. 執行同步
-npm run sync ./api/openapi.yaml
-# 或
-yarn sync ./api/openapi.yaml
-
-# 3. 檢查報告
+# 查看變更報告
 cat reports/sync-report.md
 ```
 
-### 範例 2: 定期更新
+### 手動工作流程
 
 ```bash
-# API 規格更新後,直接執行
-npm run sync ./api/openapi.yaml
-# 或
-yarn sync ./api/openapi.yaml
+# 1. 備份現有集合
+postman-sync backup -c <collection-id>
 
-# 系統會自動:
-# - 備份現有 collection
-# - 轉換新的 OpenAPI 規格
-# - 智慧合併保留測試
-# - 更新 Postman collection
-# - 產生變更報告
+# 2. 轉換 OpenAPI 規格
+postman-sync convert -o ./openapi.yaml -d ./temp/new-collection.json
+
+# 3. 合併集合
+postman-sync merge -o ./backups/latest-backup.json -n ./temp/new-collection.json
+
+# 4. 驗證合併結果
+postman-sync validate -c ./temp/merged-collection.json
 ```
 
-### 範例 3: 僅測試轉換
+### 使用本地 npm scripts (開發模式)
+
+如果您是在專案目錄下開發,也可以使用原有的 npm scripts:
 
 ```bash
-# 不更新 Postman, 僅本地轉換測試
-
-# 本地檔案
-npm run convert ./api/openapi.yaml
+# 完整同步流程
+npm run sync
 # 或
-yarn convert ./api/openapi.yaml
+yarn sync
 
-npm run convert ./api/openapi.json
-# 或
-yarn convert ./api/openapi.json
-
-# 從網址下載並轉換
-npm run convert https://petstore3.swagger.io/api/v3/openapi.json
-# 或
-yarn convert https://petstore3.swagger.io/api/v3/openapi.json
-
-# 轉換結果會儲存在 temp/converted-collection.json
+# 其他命令
+npm run backup
+npm run convert ./openapi.yaml
+npm run validate
 ```
 
-### 範例 4: 手動合併 collection
+## 程式化使用
 
-```bash
-# 如果需要手動控制合併過程
-npm run backup  # 先備份現有 collection
-npm run convert ./api/openapi.yaml  # 轉換新的規格
-npm run merge ./backups/collection-backup-2025-11-27T04-41-00-167Z.json ./temp/converted-collection.json
+也可以在 Node.js 程式碼中使用:
 
-# 或使用 yarn
-yarn backup
-yarn convert ./api/openapi.yaml
-yarn merge ./backups/collection-backup-2025-11-27T04-41-00-167Z.json ./temp/converted-collection.json
+```javascript
+const { syncCollection } = require("postman-openapi-sync");
 
-# 檢查合併結果後再手動上傳到 Postman
-```
+async function main() {
+  await syncCollection("./openapi.yaml", "collection-id");
+}
 
-### 範例 5: 驗證更新後的 collection
-
-```bash
-# 執行 collection 中的所有測試
-npm run validate ./temp/merged-collection.json ./environment.json
-# 或
-yarn validate ./temp/merged-collection.json ./environment.json
-```
-
-## 功能特色
-
-- ✅ 自動備份現有 collection
-- ✅ 智慧合併, 保留測試指令碼
-- ✅ 保留自訂變數和驗證設定
-- ✅ 詳細的變更追蹤報告
-- ✅ 自動驗證更新後的 collection
-- ✅ 支援本地檔案 (JSON/YAML)
-- ✅ 支援從網址下載 OpenAPI 規格
-- ✅ 可獨立使用各個步驟 (備份 / 轉換 / 合併 / 驗證)
-
-## 專案結構
-
-```
-.
-├── scripts/                  # 指令碼目錄
-│   ├── backup-collection.js  # 備份指令碼
-│   ├── convert-openapi.js    # 轉換指令碼
-│   ├── merge-collections.js  # 合併指令碼
-│   ├── sync-collection.js    # 主要同步指令碼
-│   └── validate-collection.js # 驗證指令碼
-├── backups/                  # 備份檔案 (自動建立)
-├── temp/                     # 暫存檔案 (自動建立)
-├── package.json
-├── .env.example
-└── README.md
+main().catch(console.error);
 ```
 
 ## 取得 Postman API 金鑰
@@ -309,9 +272,9 @@ yarn validate ./temp/merged-collection.json ./environment.json
 1. 登入 [Postman](https://www.postman.com/)
 2. 進入 Settings > API Keys
 3. 產生新的 API 金鑰
-4. 複製並貼到 `.env` 檔案
+4. 複製並貼到 `.env` 檔案或使用 `--api-key` 參數
 
-## 取得 collection ID
+## 取得 Collection ID
 
 在 Postman 中:
 
@@ -320,23 +283,29 @@ yarn validate ./temp/merged-collection.json ./environment.json
 3. 選擇 "Share Collection"
 4. 在 URL 中可以看到 collection ID (格式: `xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx`)
 
-## 環境變數說明
+## 專案結構
 
-```env
-# Postman API 金鑰 (必要)
-POSTMAN_API_KEY=your_api_key
-
-# Postman collection ID (必要)
-POSTMAN_COLLECTION_ID=your_collection_id
-
-# OpenAPI 規格路徑或 URL (可選)
-OPENAPI_PATH=./openapi.yaml
-
-# SSL 憑證驗證 (可選,預設為 true)
-# 設定為 false 可允許自簽憑證
-REJECT_UNAUTHORIZED=true
+```
+.
+├── bin/
+│   └── postman-sync.js       # CLI 入口
+├── scripts/                  # 核心指令碼
+│   ├── backup-collection.js
+│   ├── convert-openapi.js
+│   ├── merge-collections.js
+│   ├── sync-collection.js
+│   └── validate-collection.js
+├── backups/                  # 備份檔案 (自動建立)
+├── temp/                     # 暫存檔案 (自動建立)
+├── reports/                  # 報告檔案 (自動建立)
+├── package.json
+└── README.md
 ```
 
 ## 授權
 
-MIT
+MIT License
+
+## 作者
+
+andy505050
