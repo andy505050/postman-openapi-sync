@@ -91,6 +91,7 @@ npm link
 POSTMAN_API_KEY=your_postman_api_key
 POSTMAN_COLLECTION_ID=your_collection_id
 OPENAPI_PATH=./path/to/openapi.yaml
+# REJECT_UNAUTHORIZED=false  # 選用: 允許自簽 SSL 憑證 (預設為 true)
 ```
 
 ## 使用方式
@@ -147,11 +148,12 @@ postman-sync validate --collection ./collection.json --environment ./env.json
 
 ### sync
 
-| 選項                | 簡寫 | 說明                  | 預設值                           |
-| ------------------- | ---- | --------------------- | -------------------------------- |
-| `--openapi <path>`  | `-o` | OpenAPI 規格檔案路徑  | `OPENAPI_PATH` 環境變數          |
-| `--collection <id>` | `-c` | Postman Collection ID | `POSTMAN_COLLECTION_ID` 環境變數 |
-| `--api-key <key>`   | `-k` | Postman API Key       | `POSTMAN_API_KEY` 環境變數       |
+| 選項                       | 簡寫 | 說明                             | 預設值                           |
+| -------------------------- | ---- | -------------------------------- | -------------------------------- |
+| `--openapi <path>`         | `-o` | OpenAPI 規格檔案路徑             | `OPENAPI_PATH` 環境變數          |
+| `--collection <id>`        | `-c` | Postman Collection ID            | `POSTMAN_COLLECTION_ID` 環境變數 |
+| `--api-key <key>`          | `-k` | Postman API Key                  | `POSTMAN_API_KEY` 環境變數       |
+| `--no-reject-unauthorized` | 無   | 停用 SSL 憑證驗證 (允許自簽憑證) | 預設啟用憑證驗證                 |
 
 ### backup
 
@@ -162,10 +164,11 @@ postman-sync validate --collection ./collection.json --environment ./env.json
 
 ### convert
 
-| 選項               | 簡寫 | 說明                 | 預設值                             |
-| ------------------ | ---- | -------------------- | ---------------------------------- |
-| `--openapi <path>` | `-o` | OpenAPI 規格檔案路徑 | `OPENAPI_PATH` 環境變數            |
-| `--output <path>`  | `-d` | 輸出檔案路徑         | `./temp/converted-collection.json` |
+| 選項                       | 簡寫 | 說明                             | 預設值                             |
+| -------------------------- | ---- | -------------------------------- | ---------------------------------- |
+| `--openapi <path>`         | `-o` | OpenAPI 規格檔案路徑             | `OPENAPI_PATH` 環境變數            |
+| `--output <path>`          | `-d` | 輸出檔案路徑                     | `./temp/converted-collection.json` |
+| `--no-reject-unauthorized` | 無   | 停用 SSL 憑證驗證 (允許自簽憑證) | 預設啟用憑證驗證                   |
 
 ### merge
 

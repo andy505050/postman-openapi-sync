@@ -1,5 +1,27 @@
 # 變更記錄
 
+## [1.0.1] - 2025-11-27
+
+### 新增
+
+- ✨ 新增 `--no-reject-unauthorized` 參數支援自簽 SSL 憑證
+  - `sync` 命令支援 `--no-reject-unauthorized` 選項
+  - `convert` 命令支援 `--no-reject-unauthorized` 選項
+- 🔧 新增 `REJECT_UNAUTHORIZED` 環境變數支援
+- 📚 更新所有文件,加入 SSL 憑證驗證設定說明
+
+### 改進
+
+- 🌐 允許從使用自簽憑證的 HTTPS 端點下載 OpenAPI 規格
+- 📖 完善文件中的 SSL 憑證相關說明和範例
+- 🎯 CI/CD 範例中加入 REJECT_UNAUTHORIZED 設定參考
+
+### 技術細節
+
+- 使用 Node.js `https.Agent` 控制 SSL 驗證行為
+- 預設啟用證書驗證 (安全優先)
+- 支援通過命令列或環境變數停用驗證
+
 ## [1.0.0] - 2025-11-27
 
 ### 新增

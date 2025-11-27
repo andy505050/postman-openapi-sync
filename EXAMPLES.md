@@ -14,6 +14,7 @@ cat > .env << EOF
 POSTMAN_API_KEY=your_api_key_here
 POSTMAN_COLLECTION_ID=your_collection_id_here
 OPENAPI_PATH=./docs/openapi.yaml
+# REJECT_UNAUTHORIZED=false  # 選用: 允許自簽憑證
 EOF
 
 # 4. 執行同步
@@ -96,6 +97,9 @@ postman-sync convert -o ./api.json
 
 # 從網址下載
 postman-sync convert -o https://petstore3.swagger.io/api/v3/openapi.json
+
+# 從使用自簽憑證的 HTTPS 網址下載
+postman-sync convert -o https://internal-api.company.local/openapi.yaml --no-reject-unauthorized
 ```
 
 ## 情境 5: 手動合併兩個 Collection
@@ -183,6 +187,7 @@ jobs:
         env:
           POSTMAN_API_KEY: ${{ secrets.POSTMAN_API_KEY }}
           POSTMAN_COLLECTION_ID: ${{ secrets.POSTMAN_COLLECTION_ID }}
+          # REJECT_UNAUTHORIZED: false  # 如需允許自簽憑證,取消註解
         run: postman-sync sync --openapi ./docs/openapi.yaml
 
       - name: Upload report
@@ -207,6 +212,7 @@ sync-postman:
   variables:
     POSTMAN_API_KEY: $POSTMAN_API_KEY
     POSTMAN_COLLECTION_ID: $POSTMAN_COLLECTION_ID
+    # REJECT_UNAUTHORIZED: "false"  # 如需允許自簽憑證,取消註解
   artifacts:
     paths:
       - reports/sync-report.md
