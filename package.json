@@ -1,7 +1,7 @@
 {
   "name": "postman-openapi-sync",
   "version": "1.0.0",
-  "description": "自動化 Postman 集合與 OpenAPI 規格同步工具",
+  "description": "自動化 Postman collection 與 OpenAPI 規格同步工具",
   "main": "scripts/sync-collection.js",
   "scripts": {
     "sync": "node scripts/sync-collection.js",
@@ -17,7 +17,7 @@
     "sync",
     "automation"
   ],
-  "author": "",
+  "author": "andy505050",
   "license": "MIT",
   "devDependencies": {
     "axios": "^1.13.2",
