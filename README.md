@@ -2,6 +2,10 @@
 
 自動化工具, 用於將 Postman collection 與 OpenAPI 規格同步, 同時保留所有自訂測試、指令碼和設定。
 
+## 重要說明
+
+⚠️ **Collection 格式限制**: 合併功能僅支援使用本工具的 converter 轉換或從 Postman 匯入時的 collection 格式。手動編輯的 collection 可能因資料夾結構不符合內建規則而無法正常合併。並且 converter 和 Postman 匯入的 collection 也會有細微差異。
+
 ## 系統需求
 
 - Node.js 22.20.0 或更高版本 (較低版本未經測試, 可能無法正常運作)
@@ -155,6 +159,8 @@ yarn convert
 ```
 
 ### 合併 collection
+
+合併兩個 collection 檔案。**注意: collection 必須使用本工具的 converter 或從 Postman 匯入時的 collection 格式,才能正確識別資料夾結構。手動編輯的 collection 可能無法正常合併。並且 converter 和 Postman 匯入的 collection 也會有細微差異。**
 
 ```bash
 # 合併兩個 collection 檔案
