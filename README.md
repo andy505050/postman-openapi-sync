@@ -4,7 +4,7 @@
 
 ## 系統需求
 
-- Node.js 22.20.0 或更高版本 (較低版本未經測試,可能無法正常運作)
+- Node.js 22.20.0 或更高版本 (較低版本未經測試, 可能無法正常運作)
 - npm 或 yarn 套件管理工具
 
 ### 安裝 Node.js
@@ -17,7 +17,7 @@
 
 使用 [nvm (Node Version Manager)](https://github.com/nvm-sh/nvm) 可以輕鬆管理多個 Node.js 版本:
 
-**Windows:**
+**Windows**:
 
 ```bash
 # 安裝 nvm-windows
@@ -28,7 +28,7 @@ nvm install lts
 nvm use lts
 ```
 
-**macOS/Linux:**
+**macOS/Linux**:
 
 ```bash
 # 安裝 nvm
@@ -52,7 +52,19 @@ npm --version
 
 ### 1. 安裝相依套件
 
+使用 npm (Node.js 內建):
+
 ```bash
+npm install
+```
+
+或使用 yarn (需先安裝):
+
+```bash
+# 安裝 yarn (僅首次使用需要)
+npm install -g yarn
+
+# 安裝專案相依套件
 yarn install
 ```
 
@@ -74,6 +86,18 @@ OPENAPI_PATH=./openapi.yaml
 
 ### 3. 執行同步
 
+使用 npm:
+
+```bash
+# 方法 1: 使用命令列參數
+npm run sync path/to/your/openapi.yaml your-collection-id
+
+# 方法 2: 使用環境變數 (在 .env 中設定)
+npm run sync
+```
+
+使用 yarn:
+
 ```bash
 # 方法 1: 使用命令列參數
 yarn sync path/to/your/openapi.yaml your-collection-id
@@ -90,9 +114,13 @@ yarn sync
 
 ```bash
 # 使用命令列參數
+npm run sync <openapi-path> <collection-id>
+# 或
 yarn sync <openapi-path> <collection-id>
 
 # 使用環境變數
+npm run sync
+# 或
 yarn sync
 ```
 
@@ -102,9 +130,13 @@ yarn sync
 
 ```bash
 # 使用命令列參數
+npm run backup <collection-id>
+# 或
 yarn backup <collection-id>
 
 # 使用環境變數
+npm run backup
+# 或
 yarn backup
 ```
 
@@ -112,30 +144,46 @@ yarn backup
 
 ```bash
 # 使用命令列參數
+npm run convert <openapi-path>
+# 或
 yarn convert <openapi-path>
 
 # 使用環境變數
+npm run convert
+# 或
 yarn convert
 ```
 
 ### 合併 collection
 
 ```bash
-# 合併兩個collection檔案
+# 合併兩個 collection 檔案
+npm run merge <原始collection> <新collection> [輸出路徑]
+# 或
 yarn merge <原始collection> <新collection> [輸出路徑]
 
-# 範例
+# 範例 1: 預設輸出路徑
+npm run merge ./backups/collection-backup.json ./temp/converted-collection.json
+# 或
 yarn merge ./backups/collection-backup.json ./temp/converted-collection.json
+
+# 範例 2: 指定輸出路徑
+npm run merge ./backups/backup.json ./temp/new.json ./output/merged.json
+# 或
 yarn merge ./backups/backup.json ./temp/new.json ./output/merged.json
 ```
 
 ### 驗證 collection
 
 ```bash
-# 驗證本地collection檔案
+# 驗證本地 collection 檔案
+npm run validate <collection-path> [environment-path]
+# 或
 yarn validate <collection-path> [environment-path]
 
-# 驗證預設暫存collection
+# 驗證預設暫存 collection
+npm run validate
+# 或
 yarn validate
 ```
 
@@ -146,9 +194,11 @@ yarn validate
 ```bash
 # 1. 設定環境變數
 cp .env.example .env
-# 編輯 .env 填入 API 金鑰和collection ID
+# 編輯 .env 填入 API 金鑰和 collection ID
 
 # 2. 執行同步
+npm run sync ./api/openapi.yaml
+# 或
 yarn sync ./api/openapi.yaml
 
 # 3. 檢查報告
@@ -159,10 +209,12 @@ cat reports/sync-report.md
 
 ```bash
 # API 規格更新後,直接執行
+npm run sync ./api/openapi.yaml
+# 或
 yarn sync ./api/openapi.yaml
 
 # 系統會自動:
-# - 備份現有collection
+# - 備份現有 collection
 # - 轉換新的 OpenAPI 規格
 # - 智慧合併保留測試
 # - 更新 Postman collection
@@ -172,15 +224,21 @@ yarn sync ./api/openapi.yaml
 ### 範例 3: 僅測試轉換
 
 ```bash
-# 不更新 Postman,僅本地轉換測試
+# 不更新 Postman, 僅本地轉換測試
 
 # 本地檔案
+npm run convert ./api/openapi.yaml
+# 或
 yarn convert ./api/openapi.yaml
+
+npm run convert ./api/openapi.json
+# 或
 yarn convert ./api/openapi.json
 
 # 從網址下載並轉換
+npm run convert https://petstore3.swagger.io/api/v3/openapi.json
+# 或
 yarn convert https://petstore3.swagger.io/api/v3/openapi.json
-yarn convert https://api.example.com/openapi.yaml
 
 # 轉換結果會儲存在 temp/converted-collection.json
 ```
@@ -189,8 +247,13 @@ yarn convert https://api.example.com/openapi.yaml
 
 ```bash
 # 如果需要手動控制合併過程
-yarn backup  # 先備份現有collection
-yarn convert ./api/openapi.yaml  # 轉換新的規格
+npm run backup  # 先備份現有 collection
+npm run convert ./api/openapi.yaml  # 轉換新的規格
+npm run merge ./backups/collection-backup-2025-11-27T04-41-00-167Z.json ./temp/converted-collection.json
+
+# 或使用 yarn
+yarn backup
+yarn convert ./api/openapi.yaml
 yarn merge ./backups/collection-backup-2025-11-27T04-41-00-167Z.json ./temp/converted-collection.json
 
 # 檢查合併結果後再手動上傳到 Postman
@@ -199,7 +262,9 @@ yarn merge ./backups/collection-backup-2025-11-27T04-41-00-167Z.json ./temp/conv
 ### 範例 5: 驗證更新後的 collection
 
 ```bash
-# 執行collection中的所有測試
+# 執行 collection 中的所有測試
+npm run validate ./temp/merged-collection.json ./environment.json
+# 或
 yarn validate ./temp/merged-collection.json ./environment.json
 ```
 
