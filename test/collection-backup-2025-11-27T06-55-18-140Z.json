@@ -1,0 +1,896 @@
+{
+  "collection": {
+    "info": {
+      "_postman_id": "6ce08113-c8f2-4d40-8b8d-04029a1aeafd",
+      "name": "WebAPI | v1",
+      "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+      "updatedAt": "2025-11-27T06:23:13.000Z",
+      "createdAt": "2025-10-07T05:58:53.000Z",
+      "lastUpdatedBy": "48956118",
+      "uid": "48956118-6ce08113-c8f2-4d40-8b8d-04029a1aeafd"
+    },
+    "item": [
+      {
+        "name": "api",
+        "item": [
+          {
+            "name": "Auth",
+            "item": [
+              {
+                "name": "/api/Auth/Login",
+                "event": [
+                  {
+                    "listen": "test",
+                    "script": {
+                      "id": "9bb7fbcd-1cb0-423d-9920-a0aad4e61a84",
+                      "exec": [
+                        "pm.test(\"Status code is 200\", function () {\r",
+                        "    pm.response.to.have.status(200);\r",
+                        "\r",
+                        "    var response=pm.response.json();\r",
+                        "    var token = response.result.token;\r",
+                        "\r",
+                        "    pm.collectionVariables.set(\"token\", token);\r",
+                        "});"
+                      ],
+                      "type": "text/javascript",
+                      "packages": {},
+                      "requests": {}
+                    }
+                  }
+                ],
+                "id": "b96d3ba6-0225-4c9c-8594-1e2f2d3f58a6",
+                "protocolProfileBehavior": {
+                  "disableBodyPruning": true
+                },
+                "request": {
+                  "method": "POST",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "body": {
+                    "mode": "raw",
+                    "raw": "{\n    \"userId\": \"AI\",\n    \"password\": \"Tax1234\"\n}",
+                    "options": {
+                      "raw": {
+                        "headerFamily": "json",
+                        "language": "json"
+                      }
+                    }
+                  },
+                  "url": {
+                    "raw": "{{baseUrl}}/api/Auth/Login",
+                    "host": ["{{baseUrl}}"],
+                    "path": ["api", "Auth", "Login"]
+                  }
+                },
+                "response": [
+                  {
+                    "id": "8401e805-879e-4ca0-ac02-dc463da7b344",
+                    "name": "OK",
+                    "originalRequest": {
+                      "method": "POST",
+                      "header": [
+                        {
+                          "description": "Added as a part of security scheme: bearer",
+                          "key": "Authorization",
+                          "value": "Bearer <token>"
+                        }
+                      ],
+                      "body": {
+                        "mode": "raw",
+                        "raw": "{\n  \"userId\": \"<string>\",\n  \"password\": \"<string>\"\n}",
+                        "options": {
+                          "raw": {
+                            "language": "json"
+                          }
+                        }
+                      },
+                      "url": {
+                        "raw": "{{baseUrl}}/api/Auth/Login",
+                        "host": ["{{baseUrl}}"],
+                        "path": ["api", "Auth", "Login"]
+                      }
+                    },
+                    "status": "OK",
+                    "code": 200,
+                    "_postman_previewlanguage": "text",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "text/plain"
+                      }
+                    ],
+                    "cookie": [],
+                    "responseTime": null,
+                    "body": "",
+                    "uid": "48956118-8401e805-879e-4ca0-ac02-dc463da7b344"
+                  }
+                ],
+                "uid": "48956118-b96d3ba6-0225-4c9c-8594-1e2f2d3f58a6"
+              },
+              {
+                "name": "/api/Auth/RefreshToken",
+                "id": "1fa242e3-5e0d-41b8-a779-7e065b3a6c3b",
+                "protocolProfileBehavior": {
+                  "disableBodyPruning": true
+                },
+                "request": {
+                  "method": "POST",
+                  "header": [],
+                  "url": {
+                    "raw": "{{baseUrl}}/api/Auth/RefreshToken",
+                    "host": ["{{baseUrl}}"],
+                    "path": ["api", "Auth", "RefreshToken"]
+                  }
+                },
+                "response": [
+                  {
+                    "id": "a7c81097-322a-4758-acbc-854207920279",
+                    "name": "OK",
+                    "originalRequest": {
+                      "method": "POST",
+                      "header": [
+                        {
+                          "description": "Added as a part of security scheme: bearer",
+                          "key": "Authorization",
+                          "value": "Bearer <token>"
+                        }
+                      ],
+                      "url": {
+                        "raw": "{{baseUrl}}/api/Auth/RefreshToken",
+                        "host": ["{{baseUrl}}"],
+                        "path": ["api", "Auth", "RefreshToken"]
+                      }
+                    },
+                    "status": "OK",
+                    "code": 200,
+                    "_postman_previewlanguage": "text",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "text/plain"
+                      }
+                    ],
+                    "cookie": [],
+                    "responseTime": null,
+                    "body": "",
+                    "uid": "48956118-a7c81097-322a-4758-acbc-854207920279"
+                  }
+                ],
+                "uid": "48956118-1fa242e3-5e0d-41b8-a779-7e065b3a6c3b"
+              }
+            ],
+            "id": "a19eab7b-9dc2-4574-b7d6-5cfb324b2669",
+            "uid": "48956118-a19eab7b-9dc2-4574-b7d6-5cfb324b2669"
+          },
+          {
+            "name": "Test",
+            "item": [
+              {
+                "name": "/api/Test/LogTest",
+                "id": "cbdb03e1-b6b3-453c-8621-a785e43180c2",
+                "protocolProfileBehavior": {
+                  "disableBodyPruning": true
+                },
+                "request": {
+                  "method": "GET",
+                  "header": [],
+                  "url": {
+                    "raw": "{{baseUrl}}/api/Test/LogTest",
+                    "host": ["{{baseUrl}}"],
+                    "path": ["api", "Test", "LogTest"]
+                  }
+                },
+                "response": [
+                  {
+                    "id": "d8cd1fe4-bb8c-48bf-a154-0ef7d941091b",
+                    "name": "OK",
+                    "originalRequest": {
+                      "method": "GET",
+                      "header": [
+                        {
+                          "description": "Added as a part of security scheme: bearer",
+                          "key": "Authorization",
+                          "value": "Bearer <token>"
+                        }
+                      ],
+                      "url": {
+                        "raw": "{{baseUrl}}/api/Test/LogTest",
+                        "host": ["{{baseUrl}}"],
+                        "path": ["api", "Test", "LogTest"]
+                      }
+                    },
+                    "status": "OK",
+                    "code": 200,
+                    "_postman_previewlanguage": "text",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "text/plain"
+                      }
+                    ],
+                    "cookie": [],
+                    "responseTime": null,
+                    "body": "",
+                    "uid": "48956118-d8cd1fe4-bb8c-48bf-a154-0ef7d941091b"
+                  }
+                ],
+                "uid": "48956118-cbdb03e1-b6b3-453c-8621-a785e43180c2"
+              },
+              {
+                "name": "/api/Test/Write2LogTest",
+                "id": "0f7ec6d5-5a48-422d-b6f5-43f2a4be6fb8",
+                "protocolProfileBehavior": {
+                  "disableBodyPruning": true
+                },
+                "request": {
+                  "method": "GET",
+                  "header": [],
+                  "url": {
+                    "raw": "{{baseUrl}}/api/Test/Write2LogTest",
+                    "host": ["{{baseUrl}}"],
+                    "path": ["api", "Test", "Write2LogTest"]
+                  }
+                },
+                "response": [
+                  {
+                    "id": "0547a33f-218b-441a-8e46-b7606acb249e",
+                    "name": "OK",
+                    "originalRequest": {
+                      "method": "GET",
+                      "header": [
+                        {
+                          "description": "Added as a part of security scheme: bearer",
+                          "key": "Authorization",
+                          "value": "Bearer <token>"
+                        }
+                      ],
+                      "url": {
+                        "raw": "{{baseUrl}}/api/Test/Write2LogTest",
+                        "host": ["{{baseUrl}}"],
+                        "path": ["api", "Test", "Write2LogTest"]
+                      }
+                    },
+                    "status": "OK",
+                    "code": 200,
+                    "_postman_previewlanguage": "text",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "text/plain"
+                      }
+                    ],
+                    "cookie": [],
+                    "responseTime": null,
+                    "body": "",
+                    "uid": "48956118-0547a33f-218b-441a-8e46-b7606acb249e"
+                  }
+                ],
+                "uid": "48956118-0f7ec6d5-5a48-422d-b6f5-43f2a4be6fb8"
+              },
+              {
+                "name": "/api/Test/DownloadFile",
+                "id": "76f24b4a-0c88-4160-91e6-a1f90ca40f9c",
+                "protocolProfileBehavior": {
+                  "disableBodyPruning": true
+                },
+                "request": {
+                  "method": "GET",
+                  "header": [],
+                  "url": {
+                    "raw": "{{baseUrl}}/api/Test/DownloadFile",
+                    "host": ["{{baseUrl}}"],
+                    "path": ["api", "Test", "DownloadFile"]
+                  }
+                },
+                "response": [
+                  {
+                    "id": "4cb76d67-0f70-4519-88cc-aa0c03351fae",
+                    "name": "OK",
+                    "originalRequest": {
+                      "method": "GET",
+                      "header": [
+                        {
+                          "description": "Added as a part of security scheme: bearer",
+                          "key": "Authorization",
+                          "value": "Bearer <token>"
+                        }
+                      ],
+                      "url": {
+                        "raw": "{{baseUrl}}/api/Test/DownloadFile",
+                        "host": ["{{baseUrl}}"],
+                        "path": ["api", "Test", "DownloadFile"]
+                      }
+                    },
+                    "status": "OK",
+                    "code": 200,
+                    "_postman_previewlanguage": "text",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "text/plain"
+                      }
+                    ],
+                    "cookie": [],
+                    "responseTime": null,
+                    "body": "",
+                    "uid": "48956118-4cb76d67-0f70-4519-88cc-aa0c03351fae"
+                  }
+                ],
+                "uid": "48956118-76f24b4a-0c88-4160-91e6-a1f90ca40f9c"
+              },
+              {
+                "name": "/api/Test/ExceptionTest",
+                "id": "e1a85de4-aac8-4f87-8939-b86cb9ffec5c",
+                "protocolProfileBehavior": {
+                  "disableBodyPruning": true
+                },
+                "request": {
+                  "method": "GET",
+                  "header": [],
+                  "url": {
+                    "raw": "{{baseUrl}}/api/Test/ExceptionTest",
+                    "host": ["{{baseUrl}}"],
+                    "path": ["api", "Test", "ExceptionTest"]
+                  }
+                },
+                "response": [
+                  {
+                    "id": "212fc518-69bc-4c4d-a01c-6ba9ed61e1e2",
+                    "name": "OK",
+                    "originalRequest": {
+                      "method": "GET",
+                      "header": [
+                        {
+                          "description": "Added as a part of security scheme: bearer",
+                          "key": "Authorization",
+                          "value": "Bearer <token>"
+                        }
+                      ],
+                      "url": {
+                        "raw": "{{baseUrl}}/api/Test/ExceptionTest",
+                        "host": ["{{baseUrl}}"],
+                        "path": ["api", "Test", "ExceptionTest"]
+                      }
+                    },
+                    "status": "OK",
+                    "code": 200,
+                    "_postman_previewlanguage": "text",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "text/plain"
+                      }
+                    ],
+                    "cookie": [],
+                    "responseTime": null,
+                    "body": "",
+                    "uid": "48956118-212fc518-69bc-4c4d-a01c-6ba9ed61e1e2"
+                  }
+                ],
+                "uid": "48956118-e1a85de4-aac8-4f87-8939-b86cb9ffec5c"
+              },
+              {
+                "name": "/api/Test/BadRequestTest",
+                "id": "22434a44-3ca7-4ee7-8c61-36420623a36a",
+                "protocolProfileBehavior": {
+                  "disableBodyPruning": true
+                },
+                "request": {
+                  "method": "GET",
+                  "header": [],
+                  "url": {
+                    "raw": "{{baseUrl}}/api/Test/BadRequestTest",
+                    "host": ["{{baseUrl}}"],
+                    "path": ["api", "Test", "BadRequestTest"]
+                  }
+                },
+                "response": [
+                  {
+                    "id": "f9460088-9ba3-4ef8-b043-9763ca88b432",
+                    "name": "OK",
+                    "originalRequest": {
+                      "method": "GET",
+                      "header": [
+                        {
+                          "description": "Added as a part of security scheme: bearer",
+                          "key": "Authorization",
+                          "value": "Bearer <token>"
+                        }
+                      ],
+                      "url": {
+                        "raw": "{{baseUrl}}/api/Test/BadRequestTest",
+                        "host": ["{{baseUrl}}"],
+                        "path": ["api", "Test", "BadRequestTest"]
+                      }
+                    },
+                    "status": "OK",
+                    "code": 200,
+                    "_postman_previewlanguage": "text",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "text/plain"
+                      }
+                    ],
+                    "cookie": [],
+                    "responseTime": null,
+                    "body": "",
+                    "uid": "48956118-f9460088-9ba3-4ef8-b043-9763ca88b432"
+                  }
+                ],
+                "uid": "48956118-22434a44-3ca7-4ee7-8c61-36420623a36a"
+              },
+              {
+                "name": "/api/Test/Encrypt",
+                "id": "c8d81eef-bc55-40c1-b458-cc1be0e4dd78",
+                "protocolProfileBehavior": {
+                  "disableBodyPruning": true
+                },
+                "request": {
+                  "method": "POST",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "body": {
+                    "mode": "raw",
+                    "raw": "<string>",
+                    "options": {
+                      "raw": {
+                        "language": "json"
+                      }
+                    }
+                  },
+                  "url": {
+                    "raw": "{{baseUrl}}/api/Test/Encrypt",
+                    "host": ["{{baseUrl}}"],
+                    "path": ["api", "Test", "Encrypt"]
+                  }
+                },
+                "response": [
+                  {
+                    "id": "25b33b34-f49e-4a33-99bf-88ab4dcc00c7",
+                    "name": "OK",
+                    "originalRequest": {
+                      "method": "POST",
+                      "header": [
+                        {
+                          "description": "Added as a part of security scheme: bearer",
+                          "key": "Authorization",
+                          "value": "Bearer <token>"
+                        }
+                      ],
+                      "body": {
+                        "mode": "raw",
+                        "raw": "<string>",
+                        "options": {
+                          "raw": {
+                            "language": "json"
+                          }
+                        }
+                      },
+                      "url": {
+                        "raw": "{{baseUrl}}/api/Test/Encrypt",
+                        "host": ["{{baseUrl}}"],
+                        "path": ["api", "Test", "Encrypt"]
+                      }
+                    },
+                    "status": "OK",
+                    "code": 200,
+                    "_postman_previewlanguage": "text",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "text/plain"
+                      }
+                    ],
+                    "cookie": [],
+                    "responseTime": null,
+                    "body": "",
+                    "uid": "48956118-25b33b34-f49e-4a33-99bf-88ab4dcc00c7"
+                  }
+                ],
+                "uid": "48956118-c8d81eef-bc55-40c1-b458-cc1be0e4dd78"
+              },
+              {
+                "name": "/api/Test/Decrypt",
+                "id": "bad791a4-ab0a-4614-b2b3-6b4f74029c45",
+                "protocolProfileBehavior": {
+                  "disableBodyPruning": true
+                },
+                "request": {
+                  "method": "POST",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "body": {
+                    "mode": "raw",
+                    "raw": "<string>",
+                    "options": {
+                      "raw": {
+                        "language": "json"
+                      }
+                    }
+                  },
+                  "url": {
+                    "raw": "{{baseUrl}}/api/Test/Decrypt",
+                    "host": ["{{baseUrl}}"],
+                    "path": ["api", "Test", "Decrypt"]
+                  }
+                },
+                "response": [
+                  {
+                    "id": "c849433d-f019-4481-af0b-84eef8d2a938",
+                    "name": "OK",
+                    "originalRequest": {
+                      "method": "POST",
+                      "header": [
+                        {
+                          "description": "Added as a part of security scheme: bearer",
+                          "key": "Authorization",
+                          "value": "Bearer <token>"
+                        }
+                      ],
+                      "body": {
+                        "mode": "raw",
+                        "raw": "<string>",
+                        "options": {
+                          "raw": {
+                            "language": "json"
+                          }
+                        }
+                      },
+                      "url": {
+                        "raw": "{{baseUrl}}/api/Test/Decrypt",
+                        "host": ["{{baseUrl}}"],
+                        "path": ["api", "Test", "Decrypt"]
+                      }
+                    },
+                    "status": "OK",
+                    "code": 200,
+                    "_postman_previewlanguage": "text",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "text/plain"
+                      }
+                    ],
+                    "cookie": [],
+                    "responseTime": null,
+                    "body": "",
+                    "uid": "48956118-c849433d-f019-4481-af0b-84eef8d2a938"
+                  }
+                ],
+                "uid": "48956118-bad791a4-ab0a-4614-b2b3-6b4f74029c45"
+              },
+              {
+                "name": "/api/Test/GetClaims",
+                "id": "a89b2ea0-b438-412c-b34c-aa2366ee43a2",
+                "protocolProfileBehavior": {
+                  "disableBodyPruning": true
+                },
+                "request": {
+                  "method": "GET",
+                  "header": [],
+                  "url": {
+                    "raw": "{{baseUrl}}/api/Test/GetClaims",
+                    "host": ["{{baseUrl}}"],
+                    "path": ["api", "Test", "GetClaims"]
+                  }
+                },
+                "response": [
+                  {
+                    "id": "99645da0-259a-4e58-8373-951ff811968d",
+                    "name": "OK",
+                    "originalRequest": {
+                      "method": "GET",
+                      "header": [
+                        {
+                          "description": "Added as a part of security scheme: bearer",
+                          "key": "Authorization",
+                          "value": "Bearer <token>"
+                        }
+                      ],
+                      "url": {
+                        "raw": "{{baseUrl}}/api/Test/GetClaims",
+                        "host": ["{{baseUrl}}"],
+                        "path": ["api", "Test", "GetClaims"]
+                      }
+                    },
+                    "status": "OK",
+                    "code": 200,
+                    "_postman_previewlanguage": "text",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "text/plain"
+                      }
+                    ],
+                    "cookie": [],
+                    "responseTime": null,
+                    "body": "",
+                    "uid": "48956118-99645da0-259a-4e58-8373-951ff811968d"
+                  }
+                ],
+                "uid": "48956118-a89b2ea0-b438-412c-b34c-aa2366ee43a2"
+              },
+              {
+                "name": "/api/Test/GetIdentityName",
+                "id": "d36c14ab-67ed-4eaf-bcb6-f3b3c1818937",
+                "protocolProfileBehavior": {
+                  "disableBodyPruning": true
+                },
+                "request": {
+                  "method": "PUT",
+                  "header": [],
+                  "url": {
+                    "raw": "{{baseUrl}}/api/Test/GetIdentityName",
+                    "host": ["{{baseUrl}}"],
+                    "path": ["api", "Test", "GetIdentityName"]
+                  }
+                },
+                "response": [
+                  {
+                    "id": "55552204-615d-45dc-bbe4-f8081b37e733",
+                    "name": "OK",
+                    "originalRequest": {
+                      "method": "PUT",
+                      "header": [
+                        {
+                          "description": "Added as a part of security scheme: bearer",
+                          "key": "Authorization",
+                          "value": "Bearer <token>"
+                        }
+                      ],
+                      "url": {
+                        "raw": "{{baseUrl}}/api/Test/GetIdentityName",
+                        "host": ["{{baseUrl}}"],
+                        "path": ["api", "Test", "GetIdentityName"]
+                      }
+                    },
+                    "status": "OK",
+                    "code": 200,
+                    "_postman_previewlanguage": "text",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "text/plain"
+                      }
+                    ],
+                    "cookie": [],
+                    "responseTime": null,
+                    "body": "",
+                    "uid": "48956118-55552204-615d-45dc-bbe4-f8081b37e733"
+                  }
+                ],
+                "uid": "48956118-d36c14ab-67ed-4eaf-bcb6-f3b3c1818937"
+              }
+            ],
+            "id": "214e9abd-d617-47e9-a36b-72124f43af69",
+            "uid": "48956118-214e9abd-d617-47e9-a36b-72124f43af69"
+          },
+          {
+            "name": "/api/SysLog/GetLog",
+            "id": "fb39872a-69c6-476c-9c5c-109150d1e234",
+            "protocolProfileBehavior": {
+              "disableBodyPruning": true
+            },
+            "request": {
+              "method": "GET",
+              "header": [],
+              "url": {
+                "raw": "{{baseUrl}}/api/SysLog/GetLog?Filter.Keyword=<string>&Filter.UserId=<string>&Filter.LogType=<string>&Filter.StartDate=<dateTime>&Filter.EndDate=<dateTime>&PageNumber=<integer>&PageSize=<integer>&OrderByColumnName=<string>&InAscendingOrder=<boolean>",
+                "host": ["{{baseUrl}}"],
+                "path": ["api", "SysLog", "GetLog"],
+                "query": [
+                  {
+                    "key": "Filter.Keyword",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Filter.UserId",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Filter.LogType",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Filter.StartDate",
+                    "value": "<dateTime>"
+                  },
+                  {
+                    "key": "Filter.EndDate",
+                    "value": "<dateTime>"
+                  },
+                  {
+                    "key": "PageNumber",
+                    "value": "<integer>"
+                  },
+                  {
+                    "key": "PageSize",
+                    "value": "<integer>"
+                  },
+                  {
+                    "key": "OrderByColumnName",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "InAscendingOrder",
+                    "value": "<boolean>"
+                  }
+                ]
+              }
+            },
+            "response": [
+              {
+                "id": "e2d36ac9-3c4d-4b74-933c-e2d5ace2b373",
+                "name": "OK",
+                "originalRequest": {
+                  "method": "GET",
+                  "header": [
+                    {
+                      "description": "Added as a part of security scheme: bearer",
+                      "key": "Authorization",
+                      "value": "Bearer <token>"
+                    }
+                  ],
+                  "url": {
+                    "raw": "{{baseUrl}}/api/SysLog/GetLog?Filter.Keyword=<string>&Filter.UserId=<string>&Filter.LogType=<string>&Filter.StartDate=<dateTime>&Filter.EndDate=<dateTime>&PageNumber=<integer>&PageSize=<integer>&OrderByColumnName=<string>&InAscendingOrder=<boolean>",
+                    "host": ["{{baseUrl}}"],
+                    "path": ["api", "SysLog", "GetLog"],
+                    "query": [
+                      {
+                        "key": "Filter.Keyword",
+                        "value": "<string>"
+                      },
+                      {
+                        "key": "Filter.UserId",
+                        "value": "<string>"
+                      },
+                      {
+                        "key": "Filter.LogType",
+                        "value": "<string>"
+                      },
+                      {
+                        "key": "Filter.StartDate",
+                        "value": "<dateTime>"
+                      },
+                      {
+                        "key": "Filter.EndDate",
+                        "value": "<dateTime>"
+                      },
+                      {
+                        "key": "PageNumber",
+                        "value": "<integer>"
+                      },
+                      {
+                        "key": "PageSize",
+                        "value": "<integer>"
+                      },
+                      {
+                        "key": "OrderByColumnName",
+                        "value": "<string>"
+                      },
+                      {
+                        "key": "InAscendingOrder",
+                        "value": "<boolean>"
+                      }
+                    ]
+                  }
+                },
+                "status": "OK",
+                "code": 200,
+                "_postman_previewlanguage": "text",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "text/plain"
+                  }
+                ],
+                "cookie": [],
+                "responseTime": null,
+                "body": "",
+                "uid": "48956118-e2d36ac9-3c4d-4b74-933c-e2d5ace2b373"
+              }
+            ],
+            "uid": "48956118-fb39872a-69c6-476c-9c5c-109150d1e234"
+          }
+        ],
+        "id": "e0f14d75-eb5d-4218-89f8-44783ba9ff00",
+        "uid": "48956118-e0f14d75-eb5d-4218-89f8-44783ba9ff00"
+      },
+      {
+        "name": "Get Weather Forecast",
+        "id": "c21e2477-f0d7-460c-8069-04e5d2f11901",
+        "protocolProfileBehavior": {
+          "disableBodyPruning": true
+        },
+        "request": {
+          "method": "GET",
+          "header": [
+            {
+              "key": "Accept",
+              "value": "text/plain"
+            }
+          ],
+          "url": {
+            "raw": "{{baseUrl}}/WeatherForecast",
+            "host": ["{{baseUrl}}"],
+            "path": ["WeatherForecast"]
+          }
+        },
+        "response": [
+          {
+            "id": "2e9e780c-f322-403c-b610-57086aa89790",
+            "name": "OK",
+            "originalRequest": {
+              "method": "GET",
+              "header": [
+                {
+                  "description": "Added as a part of security scheme: bearer",
+                  "key": "Authorization",
+                  "value": "Bearer <token>"
+                },
+                {
+                  "key": "Accept",
+                  "value": "text/plain"
+                }
+              ],
+              "url": {
+                "raw": "{{baseUrl}}/WeatherForecast",
+                "host": ["{{baseUrl}}"],
+                "path": ["WeatherForecast"]
+              }
+            },
+            "status": "OK",
+            "code": 200,
+            "_postman_previewlanguage": "json",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "cookie": [],
+            "responseTime": null,
+            "body": "[\n  {\n    \"date\": \"1946-08-15\",\n    \"temperatureC\": 1646,\n    \"temperatureF\": 886,\n    \"summary\": \"string\"\n  },\n  {\n    \"date\": \"2001-12-08\",\n    \"temperatureC\": 4063,\n    \"temperatureF\": 6982,\n    \"summary\": \"string\"\n  }\n]",
+            "uid": "48956118-2e9e780c-f322-403c-b610-57086aa89790"
+          }
+        ],
+        "uid": "48956118-c21e2477-f0d7-460c-8069-04e5d2f11901"
+      }
+    ],
+    "auth": {
+      "type": "bearer",
+      "bearer": [
+        {
+          "key": "token",
+          "value": "{{token}}",
+          "type": "string"
+        }
+      ]
+    },
+    "variable": [
+      {
+        "key": "baseUrl",
+        "value": "https://localhost:7259/",
+        "type": "string"
+      },
+      {
+        "key": "token",
+        "value": ""
+      }
+    ]
+  }
+}
