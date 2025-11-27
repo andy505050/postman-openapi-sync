@@ -1,0 +1,216 @@
+{
+  "collection": {
+    "info": {
+      "_postman_id": "6ce08113-c8f2-4d40-8b8d-04029a1aeafd",
+      "name": "WebAPI | v1",
+      "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+      "updatedAt": "2025-11-27T02:57:04.000Z",
+      "createdAt": "2025-10-07T05:58:53.000Z",
+      "lastUpdatedBy": "48956118",
+      "uid": "48956118-6ce08113-c8f2-4d40-8b8d-04029a1aeafd"
+    },
+    "item": [
+      {
+        "name": "api",
+        "item": [
+          {
+            "name": "Auth",
+            "item": [
+              {
+                "name": "Login",
+                "item": [
+                  {
+                    "name": "/api/Auth/Login",
+                    "event": [
+                      {
+                        "listen": "test",
+                        "script": {
+                          "id": "9bb7fbcd-1cb0-423d-9920-a0aad4e61a84",
+                          "exec": [
+                            "pm.test(\"Status code is 200\", function () {\r",
+                            "    pm.response.to.have.status(200);\r",
+                            "\r",
+                            "    var response=pm.response.json();\r",
+                            "    var token = response.result.token;\r",
+                            "\r",
+                            "    pm.collectionVariables.set(\"token\", token);\r",
+                            "});"
+                          ],
+                          "type": "text/javascript",
+                          "packages": {},
+                          "requests": {}
+                        }
+                      }
+                    ],
+                    "id": "3272f426-d8f4-46e6-8035-91ed127da3d2",
+                    "protocolProfileBehavior": {
+                      "disableBodyPruning": true
+                    },
+                    "request": {
+                      "method": "POST",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "body": {
+                        "mode": "raw",
+                        "raw": "{\n    \"userId\": \"xxxx\",\n    \"password\": \"yyyy\"\n}",
+                        "options": {
+                          "raw": {
+                            "headerFamily": "json",
+                            "language": "json"
+                          }
+                        }
+                      },
+                      "url": {
+                        "raw": "{{baseUrl}}/api/Auth/Login",
+                        "host": ["{{baseUrl}}"],
+                        "path": ["api", "Auth", "Login"]
+                      }
+                    },
+                    "response": [
+                      {
+                        "id": "4df48aae-cc23-4d41-82dd-134bf9cb5606",
+                        "name": "OK",
+                        "originalRequest": {
+                          "method": "POST",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"userId\": \"string\",\n  \"password\": \"string\"\n}",
+                            "options": {
+                              "raw": {
+                                "headerFamily": "json",
+                                "language": "json"
+                              }
+                            }
+                          },
+                          "url": {
+                            "raw": "{{baseUrl}}/api/Auth/Login",
+                            "host": ["{{baseUrl}}"],
+                            "path": ["api", "Auth", "Login"]
+                          }
+                        },
+                        "status": "OK",
+                        "code": 200,
+                        "_postman_previewlanguage": "text",
+                        "header": [],
+                        "cookie": [],
+                        "responseTime": null,
+                        "body": "",
+                        "uid": "48956118-4df48aae-cc23-4d41-82dd-134bf9cb5606"
+                      }
+                    ],
+                    "uid": "48956118-3272f426-d8f4-46e6-8035-91ed127da3d2"
+                  }
+                ],
+                "id": "094ad14e-2348-4981-8497-5661e7de4c15",
+                "uid": "48956118-094ad14e-2348-4981-8497-5661e7de4c15"
+              },
+              {
+                "name": "RefreshToken",
+                "item": [
+                  {
+                    "name": "/api/Auth/RefreshToken",
+                    "id": "9e195e4f-32b2-423c-b465-bb2f4b92f4cc",
+                    "protocolProfileBehavior": {
+                      "disableBodyPruning": true
+                    },
+                    "request": {
+                      "method": "POST",
+                      "header": [],
+                      "url": {
+                        "raw": "{{baseUrl}}/api/Auth/RefreshToken",
+                        "host": ["{{baseUrl}}"],
+                        "path": ["api", "Auth", "RefreshToken"]
+                      }
+                    },
+                    "response": [
+                      {
+                        "id": "ef70a6b2-59ee-499b-a6d7-201e960921c8",
+                        "name": "OK",
+                        "originalRequest": {
+                          "method": "POST",
+                          "header": [],
+                          "url": {
+                            "raw": "{{baseUrl}}/api/Auth/RefreshToken",
+                            "host": ["{{baseUrl}}"],
+                            "path": ["api", "Auth", "RefreshToken"]
+                          }
+                        },
+                        "status": "OK",
+                        "code": 200,
+                        "_postman_previewlanguage": "text",
+                        "header": [],
+                        "cookie": [],
+                        "responseTime": null,
+                        "body": "",
+                        "uid": "48956118-ef70a6b2-59ee-499b-a6d7-201e960921c8"
+                      }
+                    ],
+                    "uid": "48956118-9e195e4f-32b2-423c-b465-bb2f4b92f4cc"
+                  }
+                ],
+                "id": "00de3f8e-ceb6-4a67-a744-5366768233a5",
+                "uid": "48956118-00de3f8e-ceb6-4a67-a744-5366768233a5"
+              }
+            ],
+            "id": "7f8334a3-7a16-454f-b97e-6bc0460f96fe",
+            "uid": "48956118-7f8334a3-7a16-454f-b97e-6bc0460f96fe"
+          }
+        ],
+        "id": "fe32894f-e225-4c3b-88a8-46b50fb0033d",
+        "uid": "48956118-fe32894f-e225-4c3b-88a8-46b50fb0033d"
+      }
+    ],
+    "auth": {
+      "type": "bearer",
+      "bearer": [
+        {
+          "key": "token",
+          "value": "{{token}}",
+          "type": "string"
+        }
+      ]
+    },
+    "event": [
+      {
+        "listen": "prerequest",
+        "script": {
+          "id": "7d55a9fe-8abb-41ec-81ed-5e2c789cebf7",
+          "type": "text/javascript",
+          "packages": {},
+          "requests": {},
+          "exec": [""]
+        }
+      },
+      {
+        "listen": "test",
+        "script": {
+          "id": "fede7286-08d1-43f3-b69e-152fda6bf78e",
+          "type": "text/javascript",
+          "packages": {},
+          "requests": {},
+          "exec": [""]
+        }
+      }
+    ],
+    "variable": [
+      {
+        "key": "baseUrl",
+        "value": "https://localhost:7259/"
+      },
+      {
+        "key": "token",
+        "value": ""
+      }
+    ]
+  }
+}

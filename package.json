@@ -1,8 +1,11 @@
 {
   "name": "postman-openapi-sync",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "自動化 Postman collection 與 OpenAPI 規格同步工具",
   "main": "scripts/sync-collection.js",
+  "bin": {
+    "postman-sync": "./bin/postman-sync.js"
+  },
   "scripts": {
     "sync": "node scripts/sync-collection.js",
     "backup": "node scripts/backup-collection.js",
@@ -15,13 +18,35 @@
     "openapi",
     "api",
     "sync",
-    "automation"
+    "automation",
+    "cli",
+    "swagger",
+    "rest-api",
+    "api-testing"
   ],
   "author": "andy505050",
   "license": "MIT",
-  "devDependencies": {
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/andy505050/postman-openapi-sync.git"
+  },
+  "bugs": {
+    "url": "https://github.com/andy505050/postman-openapi-sync/issues"
+  },
+  "homepage": "https://github.com/andy505050/postman-openapi-sync#readme",
+  "engines": {
+    "node": ">=22.20.0"
+  },
+  "files": [
+    "bin/",
+    "scripts/",
+    "README.md",
+    "LICENSE"
+  ],
+  "dependencies": {
     "axios": "^1.13.2",
-    "dotenv": "^17.2.3",
+    "commander": "^14.0.2",
+    "dotenv": "16.6.1",
     "lodash": "^4.17.21",
     "newman": "^6.2.1",
     "openapi-to-postmanv2": "^5.5.0"
